@@ -1,0 +1,344 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance-optimized CSS for instant UI feedback */
+:root {
+  --transition-instant: 0.05s;
+  --transition-fast: 0.08s;
+  --transition-smooth: 0.12s;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
+  --primary-blue: #3b82f6;
+  --primary-blue-hover: #2563eb;
+  --primary-blue-active: #1d4ed8;
+  --success-green: #10b981;
+  --success-green-hover: #059669;
+  --danger-red: #ef4444;
+  --danger-red-hover: #dc2626;
+  --neutral-gray: #6b7280;
+  --neutral-gray-hover: #4b5563;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ultra-fast transitions for immediate feedback */
+* {
+  transition-property: all;
+  transition-timing-function: var(--ease-out-quart);
+  transition-duration: var(--transition-instant);
+}
+
+/* Instant hover effects for interactive elements */
+button, 
+.btn, 
+a, 
+.link, 
+input[type="button"], 
+input[type="submit"], 
+.interactive {
+  transition-duration: var(--transition-instant) !important;
+  will-change: transform, background-color, box-shadow, opacity;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* Button base styles with instant feedback */
+.btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-instant) var(--ease-out-quart);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-base:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-base:active {
+  transform: translateY(0);
+  transition-duration: 0.02s;
+}
+
+/* Primary button styles */
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-blue-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:active {
+  background-color: var(--primary-blue-active);
+}
+
+/* Secondary button styles */
+.btn-secondary {
+  background-color: white;
+  color: var(--neutral-gray);
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+  color: var(--neutral-gray-hover);
+  border-color: #d1d5db;
+}
+
+/* Success button styles */
+.btn-success {
+  background-color: var(--success-green);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: var(--success-green-hover);
+}
+
+/* Danger button styles */
+.btn-danger {
+  background-color: var(--danger-red);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-red-hover);
+}
+
+/* Input field enhancements */
+input, textarea, select {
+  transition: all var(--transition-fast) var(--ease-out-quart);
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: scale(1.01);
+}
+
+input:hover, textarea:hover, select:hover {
+  border-color: #9ca3af;
+}
+
+/* Card hover effects */
+.card {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast) var(--ease-out-quart);
+  border: 1px solid #f3f4f6;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+  border-color: #e5e7eb;
+}
+
+/* Link styles with instant feedback */
+a, .link {
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: all var(--transition-instant) var(--ease-out-quart);
+  position: relative;
+}
+
+a:hover, .link:hover {
+  color: var(--primary-blue-hover);
+  transform: translateY(-1px);
+}
+
+a:active, .link:active {
+  transform: translateY(0);
+  transition-duration: 0.02s;
+}
+
+/* Ripple effect for buttons */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::before {
+  width: 300px;
+  height: 300px;
+  transition: 0s;
+}
+
+/* Custom animations for enhanced UX */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.3s var(--ease-out-quart);
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.2s var(--ease-out-quart);
+}
+
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Enhanced scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-blue);
+  border-radius: 4px;
+  transition: background-color var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-blue-hover);
+}
+
+/* Dropdown enhancements */
+.dropdown-menu {
+  z-index: 999999 !important;
+  position: absolute !important;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid #e5e7eb;
+  animation: fadeInUp 0.15s var(--ease-out-quart);
+}
+
+.dropdown-container {
+  position: relative;
+  z-index: 1000;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  transition: all var(--transition-instant) var(--ease-out-quart);
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+  color: var(--primary-blue);
+  transform: translateX(4px);
+}
+
+/* Loading states */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Focus indicators for accessibility */
+.focus-visible:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* Utility classes for instant interactions */
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.click-shrink:active {
+  transform: scale(0.98);
+  transition-duration: 0.02s;
+}

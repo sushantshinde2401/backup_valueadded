@@ -1,0 +1,30 @@
+{
+  "passport_front": {
+    "Passport No.": "17379385",
+    "Surname": "DMAMMEL",
+    "Given Name(s)": "MOHAMMED HIRAZ",
+    "Nationality": "1ND",
+    "Sex": "8",
+    "Date of Birth": "06/12/2003",
+    "raw_text": "WES Code ARIE | Maslonamy att % | Passport No.\n{ND saredta / INDIAN\nwor sorene 27379385\nWARMEL\nPERN FT A / Given Namets)\nMOHAMMED HIRAZ\nFPR | Date of Birth Ram ssex i.\n06/12/2003 Ll]\nWR BHF / Place of Barth\nKAVARATTI  LAKSHADWEER\nWh are a RIF Pace of hwo .\nCOCHIN se\nanh wed BL ORG / Onte of hue FUER BR / Date of Expiry\n27/10/2023 26/10/2033\n\nP<INDMAMMEL<<MOHAMMED<HIRAZ<<<<<< <<< <6 KCK KK\n217379385<91NDO312048N33102632065801247923<52\n"
+  },
+  "passport_back": {
+    "Address": "",
+    "raw_text": "",
+    "error": "cannot access local variable 'text_upper' where it is not associated with a value"
+  },
+  "cdc": {
+    "cdc_no": "",
+    "indos_no": ""
+  },
+  "session_id": "52953898-f2c1-4112-aa14-621944f2ec97",
+  "temp_folder": "C:\\Users\\SUSHANT SHINDE\\OneDrive\\Desktop\\VALUE_ADDED_2.0\\backend\\uploads\\temp\\52953898-f2c1-4112-aa14-621944f2ec97",
+  "uploaded_files": {
+    "photo": "WhatsApp_Image_2025-04-01_at_1.11.26_PM.jpeg",
+    "signature": "mandeep_sign.jpg",
+    "passport_front_img": "passport_front.png",
+    "passport_back_img": "passport_back.png"
+  },
+  "timestamp": "20250814_161722",
+  "last_updated": "2025-08-14T16:17:22.846074"
+}

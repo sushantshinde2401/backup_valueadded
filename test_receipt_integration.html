@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Receipt Integration</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 10px 0; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin: 10px 0; padding: 10px; background: #f8f9fa; border-radius: 4px; }
+        pre { background: #f1f1f1; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Receipt Integration Test</h1>
+        
+        <div class="test-section">
+            <h2>1. Create Test Receipt Entry</h2>
+            <p>This will create a receipt entry with the new candidate course structure.</p>
+            <button onclick="createTestReceipt()">Create Test Receipt</button>
+            <div id="receiptResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. View Current Receipt Entries</h2>
+            <button onclick="viewReceiptEntries()">View Receipt Entries</button>
+            <div id="viewResult" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. Clear All Receipt Entries</h2>
+            <button onclick="clearReceiptEntries()">Clear All Receipts</button>
+            <div id="clearResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        function createTestReceipt() {
+            // Create a test receipt entry with the new format
+            const testReceipt = {
+                id: Date.now(),
+                partyName: "Marine Safety Institute",
+                dateReceived: "2025-08-25",
+                amountReceived: 37382,
+                discount: 1000,
+                finalAmount: 36382,
+                paymentType: "NEFT",
+                // New candidate course structure
+                candidateCourses: [
+                    {
+                        candidateId: "bosiet_001",
+                        candidateName: "BHUSHAN JADHAV",
+                        courseName: "BOSIET Training",
+                        firstName: "BHUSHAN",
+                        lastName: "JADHAV"
+                    },
+                    {
+                        candidateId: "h2s_001",
+                        candidateName: "BHUSHAN JADHAV",
+                        courseName: "H2S Training",
+                        firstName: "BHUSHAN",
+                        lastName: "JADHAV"
+                    }
+                ],
+                // Legacy format for backward compatibility
+                selectedCourses: [
+                    "BHUSHAN JADHAV - BOSIET Training",
+                    "BHUSHAN JADHAV - H2S Training"
+                ],
+                timestamp: new Date().toISOString(),
+                type: "receipt"
+            };
+            
+            // Get existing receipts
+            const existingReceipts = JSON.parse(localStorage.getItem('receiptEntries') || '[]');
+            existingReceipts.push(testReceipt);
+            localStorage.setItem('receiptEntries', JSON.stringify(existingReceipts));
+            
+            // Dispatch events for real-time sync
+            window.dispatchEvent(new CustomEvent('receiptDataUpdated', { detail: testReceipt }));
+            window.dispatchEvent(new CustomEvent('receiptEntryAdded', { detail: testReceipt }));
+            window.dispatchEvent(new CustomEvent('dataUpdated', { detail: { type: 'receipt', data: testReceipt } }));
+            
+            document.getElementById('receiptResult').innerHTML = `
+                <h3>✅ Test Receipt Created Successfully!</h3>
+                <p><strong>Receipt ID:</strong> ${testReceipt.id}</p>
+                <p><strong>Company:</strong> ${testReceipt.partyName}</p>
+                <p><strong>Amount:</strong> ₹${testReceipt.amountReceived}</p>
+                <p><strong>Discount:</strong> ₹${testReceipt.discount}</p>
+                <p><strong>Candidates:</strong> ${testReceipt.candidateCourses.length}</p>
+                <pre>${JSON.stringify(testReceipt, null, 2)}</pre>
+            `;
+        }
+        
+        function viewReceiptEntries() {
+            const receipts = JSON.parse(localStorage.getItem('receiptEntries') || '[]');
+            document.getElementById('viewResult').innerHTML = `
+                <h3>Current Receipt Entries (${receipts.length})</h3>
+                <pre>${JSON.stringify(receipts, null, 2)}</pre>
+            `;
+        }
+        
+        function clearReceiptEntries() {
+            localStorage.removeItem('receiptEntries');
+            window.dispatchEvent(new CustomEvent('dataUpdated'));
+            document.getElementById('clearResult').innerHTML = `
+                <h3>✅ All Receipt Entries Cleared</h3>
+                <p>localStorage has been cleared. The company ledger should now be empty.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
